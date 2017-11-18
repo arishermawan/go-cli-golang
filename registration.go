@@ -1,17 +1,11 @@
 package main
 
 import (
-  "io/ioutil"
-)
-
-import (
-  "encoding/json"
   "fmt"
-  "os"
 )
 
 
-func registration(){
+func registration(Opts map[string]string){
 
   var user User
 
@@ -28,23 +22,12 @@ func registration(){
 
   fmt.Println(user)
 
+  Opts["name"] = user.Name
+  Opts["email"] = user.Email
+  Opts["phone"] = user.Phone
+  Opts["password"] = user.Password
+  
+  fmt.Println(user)
+
   user.Save("./user_registration.json")
-
-
-}
-
-
-//save to json
-func (u User) Save(f string) error {
-  return ioutil.WriteFile(f, u.toJson(), 0644)
-}
-
-// Convert to json
-func (u User) toJson() []byte {
-  bs, err := json.Marshal(u)
-  if err != nil {
-    fmt.Println(err)
-    os.Exit(1)
-  }
-  return bs
 }
