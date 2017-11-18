@@ -5,8 +5,24 @@ import "fmt"
 func main() {
 
   user_data := UserFromFile("./user_registration.json")
-  locationx := LocationFromFile("./locations.json")
-  fmt.Println(locationx)
+
+  locationx := loadLocation()
+
+  dist := Distance(locationx[0].Coord, locationx[2].Coord)
+
+  fmt.Println(dist)
+
+  fmt.Println("")
+
+  for _, e := range locationx {
+    // fmt.Print(i)
+    // fmt.Print(" ")
+    fmt.Print(e.Coord)
+  }
+
+  fmt.Println("")
+
+
 
   var Opts = map[string]string {
     "name": user_data.Name,
@@ -58,7 +74,25 @@ func viewProfileController(opts map[string]string){
 
 func orderGoRideController(opts map[string]string){
   fmt.Println("orderGoRideController")
+  orderGoRide(opts)
+  coord1 :=searchLocation(opts["pickup"])
+  coord2 :=searchLocation(opts["destination"])
+  fmt.Println(coord1)
+  fmt.Println(coord2)
+  cost := Distance(coord1, coord2) * 1500.0
+  fmt.Println(cost)
 
+
+}
+
+func searchLocation(x string)(coord [2]int){
+  location := loadLocation()
+  for _, e := range location {
+    if x == e.Name {
+      coord = e.Coord
+    }
+  }
+  return
 }
 
 func viewOrderHistoryController(opts map[string]string){
@@ -80,4 +114,15 @@ func mainMenuController(opts map[string]string){
   case 3:
     viewOrderHistoryController(opts)
   }
+}
+
+
+func loadLocation()(location []Location) {
+  location = LocationFromFile("./locations.json")
+  return
+}
+
+func loadOrders()(orders []Orders) {
+  orders = OrderFromFile("./orders.json")
+  return
 }
