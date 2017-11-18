@@ -5,6 +5,8 @@ import "fmt"
 func main() {
 
   user_data := UserFromFile("./user_registration.json")
+  locationx := LocationFromFile("./locations.json")
+  fmt.Println(locationx)
 
   var Opts = map[string]string {
     "name": user_data.Name,
@@ -56,6 +58,7 @@ func viewProfileController(opts map[string]string){
 
 func orderGoRideController(opts map[string]string){
   fmt.Println("orderGoRideController")
+
 }
 
 func viewOrderHistoryController(opts map[string]string){

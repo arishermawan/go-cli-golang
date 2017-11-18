@@ -46,3 +46,43 @@ func userFromJson(bs []byte) User {
   }
   return u
 }
+
+// Read from file
+func LocationFromFile(f string) []Location {
+  bs, err := ioutil.ReadFile(f)
+  if err != nil {
+    return []Location{}
+  }
+  return LocationFromJson(bs)
+}
+
+// Read from json
+func LocationFromJson(bs []byte) []Location {
+  var u []Location
+  err := json.Unmarshal(bs, &u)
+  if err != nil {
+    fmt.Println(err)
+    os.Exit(1)
+  }
+  return u
+}
+
+// Read from file
+// func LocationFromFile(f string) map[string] {
+//   bs, err := ioutil.ReadFile(f)
+//   if err != nil {
+//     return map[string]{}
+//   }
+//   return LocationFromJson(bs)
+// }
+
+// // Read from json
+// func LocationFromJson(bs []byte) map[string]{
+//   var u map[string]
+//   err := json.Unmarshal(bs, &u)
+//   if err != nil {
+//     fmt.Println(err)
+//     os.Exit(1)
+//   }
+//   return u
+// }

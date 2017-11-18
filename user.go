@@ -6,3 +6,8 @@ type User struct{
   Phone string
   Password string
 }
+
+type Location struct{
+  Name string
+  Coord [2]int
+}
